@@ -1,0 +1,23 @@
+{%extends "base.html"%} {%block title%} FLASK APP {%endblock%} {%block h1%}
+<h1>Islamophobia Detector</h1>
+{%endblock%} {%block content%}
+<div class="maindiv">
+  <form action="{{ url_for('predict')}}" method="post" class="form">
+    <div class="form-group">
+      <input
+        name="fval"
+        type="text"
+        class="input"
+        placeholder="Enter Text"
+        required
+      />
+    </div>
+    <button type="submit" class="Search">SUBMIT</button>
+  </form>
+  <div class="predictText">
+    {% if prediction_text != null %}
+    <p>{{ prediction_text }}</p>
+    {% endif %}
+  </div>
+</div>
+{%endblock%}
