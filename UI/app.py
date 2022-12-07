@@ -1,12 +1,17 @@
-import numpy as np
-from flask import Flask, request, jsonify, render_template
-import pickle
-import finalModel
+from flask import Flask, request, render_template
+from sklearn.feature_extraction.text import TfidfVectorizer
+import pandas as pd
+from sklearn.svm import LinearSVC
 # from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
-model = pickle.load(open('model.pkl', 'rb'))
 
+df = pd.read_csv("prelim_dataset.csv")
+text = df['text'].to_list()
+labels = df['Islamophobic?'].to_list()
+
+TFIDF = TfidfVectorizer(ngram_range=(1, 2), stop_words='english')
+CLF = LinearSVC(class_weight={0: 1, 1: 5}).fit(TFIDF.fit_transform(text), labels)
 
 @app.route('/')
 def home():
@@ -18,24 +23,10 @@ def predict():
     '''
     For rendering results on HTML GUI
     '''
-    # input = request.form.get("fval")
-    # print(input)
-
-    # predict = finalModel.tfidf.transform([input])
-    # y_pred = clf.predict(predict)
-    # print(y_pred[0])
-
-    # Hard code data
-    x = finalModel.ex
-
-    prediction = model.predict(x)
-    # output = round(prediction[0], 2)
-    # print(x.toarray())
-
-    return render_template('index.html', prediction_text='Classification Result: {}'.format(prediction[0] == 1))
-
-    # return render_template('index.html', prediction_text='Classification result: {}'.format(prediction), url="https://grafana.com/static/assets/img/blog/dual_axis_graph3.png")
-
+    input = request.form.get("fval")
+    predict = TFIDF.transform([input])
+    y_pred = CLF.predict(predict)
+    return render_template('index.html', prediction_text='Classification Result: {}'.format(y_pred[0]))
 
 @app.route('/dashboard')
 def dashboard():
