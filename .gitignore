@@ -1,2 +1,4 @@
 # Ignore Emily's personal Twitter API v2 keys
 .env
+# ignore venv
+venv
