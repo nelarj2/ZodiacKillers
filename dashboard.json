@@ -1,4 +1,53 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "barchart",
+      "name": "Bar chart",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.3.1"
+    },
+    {
+      "type": "panel",
+      "id": "piechart",
+      "name": "Pie chart",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -24,19 +73,19 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "apLP1sK4z"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
           "mappings": [],
           "thresholds": {
@@ -77,10 +126,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "apLP1sK4z"
+            "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "builder",
-          "expr": "counter_total",
+          "editorMode": "code",
+          "expr": "counter_total{source=~\"$soruce\"}",
           "legendFormat": "{{source}}_{{islamophobic}}",
           "range": true,
           "refId": "A"
@@ -92,7 +141,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "apLP1sK4z"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -163,11 +212,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "apLP1sK4z"
+            "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "builder",
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "counter_total",
+          "expr": "counter_total{source=~\"$soruce\"}",
           "format": "time_series",
           "instant": true,
           "legendFormat": "{{source}}_{{islamophobic}}",
@@ -181,7 +230,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "apLP1sK4z"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -231,11 +280,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "apLP1sK4z"
+            "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "builder",
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "counter_total",
+          "expr": "counter_total{source=~\"$soruce\"}",
           "format": "time_series",
           "instant": true,
           "legendFormat": "{{source}}_{{islamophobic}}",
@@ -249,7 +298,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "apLP1sK4z"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -326,10 +375,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "apLP1sK4z"
+            "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "builder",
-          "expr": "counter_total",
+          "editorMode": "code",
+          "expr": "counter_total{source=~\"$soruce\"}",
           "legendFormat": "{{source}}_{{islamophobic}}",
           "range": true,
           "refId": "A"
@@ -339,11 +388,36 @@
       "type": "timeseries"
     }
   ],
+  "refresh": "5s",
   "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "definition": "label_values(counter_total, source)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Source",
+        "multi": true,
+        "name": "soruce",
+        "options": [],
+        "query": {
+          "query": "label_values(counter_total, source)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
   },
   "time": {
     "from": "now-5m",
@@ -353,6 +427,6 @@
   "timezone": "",
   "title": "Islamophobia Dashboard",
   "uid": "tjNu-sFVk",
-  "version": 1,
+  "version": 7,
   "weekStart": ""
 }

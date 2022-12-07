@@ -6,7 +6,12 @@ import numpy as np
 from flask import Flask, request, jsonify, render_template, url_for, redirect
 import pickle
 import finalModel
+from prometheus_client import start_http_server, Counter
+import webbrowser
+
 app = Flask(__name__)
+
+start_http_server(9100)
 
 df = pd.read_csv("prelim_dataset.csv")
 text = df['text'].to_list()
@@ -16,6 +21,20 @@ TFIDF = TfidfVectorizer(ngram_range=(1, 2), stop_words='english')
 CLF = LinearSVC(class_weight={0: 1, 1: 5}).fit(
     TFIDF.fit_transform(text), labels)
 
+TWITTER_COUNT_Y = df.loc[(df["Islamophobic?"] == 1.0) & (df["Source"] == "Twitter")].shape[0]
+TWITTER_COUNT_N = df.loc[(df["Islamophobic?"] == 0.0) & (df["Source"] == "Twitter")].shape[0]
+REDDIT_COUNT_Y = df.loc[(df["Islamophobic?"] == 1.0) & (df["Source"] == "Reddit")].shape[0]
+REDDIT_COUNT_N = df.loc[(df["Islamophobic?"] == 0.0) & (df["Source"] == "Reddit")].shape[0]
+YOUTUBE_COUNT_Y = df.loc[(df["Islamophobic?"] == 1.0) & (df["Source"] == "Youtube")].shape[0]
+YOUTUBE_COUNT_N = df.loc[(df["Islamophobic?"] == 0.0) & (df["Source"] == "Youtube")].shape[0]
+
+c = Counter('counter', 'Data counter', ['islamophobic', 'source'])
+c.labels("yes", "twitter").inc(TWITTER_COUNT_Y)
+c.labels("no", "twitter").inc(TWITTER_COUNT_N)
+c.labels("yes", "reddit").inc(REDDIT_COUNT_Y)
+c.labels("no", "reddit").inc(REDDIT_COUNT_N)
+c.labels("yes", "youtube").inc(YOUTUBE_COUNT_Y)
+c.labels("no", "youtube").inc(YOUTUBE_COUNT_N)
 
 @app.route('/')
 def home():
@@ -46,8 +65,8 @@ def dashboard():
     # source = request.args['source']
     # label = request.args['label']
     # return render_template('dashboard.html', text=text, source=source, label=label)
-
-    return render_template('dashboard.html')
+    webbrowser.open_new_tab('http://localhost:3000/d/tjNu-sFVk/islamophobia-dashboard')
+    return render_template('index.html')
 
 
 # view description
@@ -78,7 +97,11 @@ def addDataForm():
     '''
     text = request.form.get("text")
     source = request.form.get("source")
-    label = request.form.get("label")
+    classification =  "yes"
+    if request.form.get("classification") == None:
+        classification =  "no"
+
+    c.labels(classification, source.lower()).inc(1)
 
     # pass data to dashboard endpoint or  pass data to cli.py
     return redirect(url_for('dashboard'))
@@ -86,4 +109,4 @@ def addDataForm():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=9123, debug=False)
