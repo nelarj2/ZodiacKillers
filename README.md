@@ -1,6 +1,7 @@
 # CourseProject
 
-Please fork this repository and paste the github link of your fork on Microsoft CMT. Detailed instructions are on Coursera under Week 1: Course Project Overview/Week 9 Activities.
+LINK TO FINAL VIDEO: https://drive.google.com/file/d/1q6xE7wZh1BPH7Fa3ePRkayiv0mpyU1aW/view?usp=share_link
+
 
 
 Leader: Nelofer Arjumand narjum2Illinois.edu,
