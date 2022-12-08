@@ -19,7 +19,7 @@ Start grafana
     - Click on "Add data source" button
     - Click on "Prometheus"
     - For mac, add http://docker.for.mac.localhost:9090 in the URL field
-    - For windows, add http://docker.for.win.localhost:9090 in the URL field 
+    - For windows, add http://host.docker.internal:9090 in the URL field 
     - Click on Save & test
 
 - Add dashboard
@@ -31,8 +31,8 @@ Start grafana
     - Select "Prometheus"
     - Click on "Import" button
 
-# Run cli
+# Run app
 
 - pip install -r requirements.txt
 - cd UI
-- python cli.py
+- python app.py
