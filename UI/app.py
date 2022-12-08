@@ -2,7 +2,6 @@ from flask import Flask, request, render_template
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
 from sklearn.svm import LinearSVC
-# from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
 
