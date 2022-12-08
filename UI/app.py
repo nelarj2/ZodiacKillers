@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 start_http_server(9100)
 
-df = pd.read_csv("prelim_dataset.csv")
+df = pd.read_csv("finalDataset.csv", encoding='utf-8')
 text = df['text'].to_list()
 labels = df['Islamophobic?'].to_list()
 

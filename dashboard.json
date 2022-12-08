@@ -379,6 +379,7 @@
           },
           "editorMode": "code",
           "expr": "counter_total{source=~\"$soruce\"}",
+          "interval": "1",
           "legendFormat": "{{source}}_{{islamophobic}}",
           "range": true,
           "refId": "A"
@@ -427,6 +428,6 @@
   "timezone": "",
   "title": "Islamophobia Dashboard",
   "uid": "tjNu-sFVk",
-  "version": 7,
+  "version": 1,
   "weekStart": ""
 }
