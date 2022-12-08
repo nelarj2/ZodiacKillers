@@ -64,11 +64,6 @@ def dashboard():
     '''
     For rendering graphs
     '''
-    # getting input data from addDataForm endpoint
-    # text = request.args['text']
-    # source = request.args['source']
-    # label = request.args['label']
-    # return render_template('dashboard.html', text=text, source=source, label=label)
     webbrowser.open_new_tab(
         'http://localhost:3000/d/tjNu-sFVk/islamophobia-dashboard')
     return render_template('index.html')
