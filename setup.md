@@ -19,7 +19,7 @@ Start grafana
     - Click on "Add data source" button
     - Click on "Prometheus"
     - For mac, add http://docker.for.mac.localhost:9090 in the URL field
-    - For windows, add http://docker.for.win.localhost:9090 in the URL field 
+    - For windows, add http://host.docker.internal:9090 in the URL field 
     - Click on Save & test
 
 - Add dashboard
