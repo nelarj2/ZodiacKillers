@@ -31,8 +31,8 @@ Start grafana
     - Select "Prometheus"
     - Click on "Import" button
 
-# Run cli
+# Run app
 
 - pip install -r requirements.txt
 - cd UI
-- python cli.py
+- python app.py
