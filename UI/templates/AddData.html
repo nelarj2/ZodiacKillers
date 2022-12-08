@@ -1,0 +1,30 @@
+{%extends "base.html"%} {%block title%} FLASK APP {%endblock%} {%block h1%}
+<h1>Islamophobia Detector</h1>
+{%endblock%} {%block content%}
+<div class="maindiv">
+  <form action="/addDataForm" method="post" class="form">
+    <div class="form-group">
+      <input
+        name="text"
+        type="text"
+        class="input"
+        placeholder="Enter Text"
+        required
+      />
+      <input
+        name="source"
+        type="text"
+        class="input"
+        placeholder="Enter Source"
+        required
+      />
+      <label for="classification">Islamophobic?</label>
+      <input
+        name="classification"
+        type="checkbox"
+      />
+    </div>
+    <button type="submit" class="Search">SUBMIT</button>
+  </form>
+</div>
+{%endblock%}
