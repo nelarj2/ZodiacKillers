@@ -2,10 +2,7 @@ from flask import Flask, request, render_template
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
 from sklearn.svm import LinearSVC
-import numpy as np
-from flask import Flask, request, jsonify, render_template, url_for, redirect
-import pickle
-import finalModel
+from flask import Flask, request, render_template, url_for, redirect
 from prometheus_client import start_http_server, Counter
 import webbrowser
 
