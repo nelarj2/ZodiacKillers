@@ -2,6 +2,6 @@ global:
   scrape_interval: 15s
 
 scrape_configs:
-- job_name: node
-  static_configs:
-  - targets: ['docker.for.win.localhost:9100']
+  - job_name: node
+    static_configs:
+      - targets: ["host.docker.internal:9100"]
